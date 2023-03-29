@@ -3,4 +3,8 @@
   <ItemGroup>
     <ClCompile Include="sources\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="headers\pieces.h" />
+    <ClInclude Include="headers\board.h" />
+  </ItemGroup>
 </Project>
