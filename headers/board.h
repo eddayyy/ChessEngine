@@ -2,13 +2,12 @@
 #include <SDL.h>
 #include <iostream>
 
-
-class DrawBoard 
+class Board 
 {
 public:
 	int SDLinit();
 	int renderBoard();
-	int renderPieces();
+	void destroyBoard( SDL_Renderer* renderer, SDL_Window* window );
 
 private:
 	const int BOARD_SIZE = 8;	 // Cells
