@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <iostream>
 
-
+//Test
 int SDLinit()
 {
     if ( SDL_Init(SDL_INIT_VIDEO) < 0 ) 
