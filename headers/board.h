@@ -2,7 +2,8 @@
 #include <SDL.h>
 #include <iostream>
 
-class Board 
+//Test
+class Board
 {
 public:
 	int SDLinit();
