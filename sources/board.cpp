@@ -2,6 +2,26 @@
 #include <SDL.h>
 #include <iostream>
 
+
+Board::Board()
+{
+    SDLinit();
+    window     =  SDL_CreateWindow("Chess Engine",
+                              SDL_WINDOWPOS_CENTERED,
+                              SDL_WINDOWPOS_CENTERED,
+                              BOARD_SIZE * SQUARE_SIZE,
+                              BOARD_SIZE * SQUARE_SIZE,
+                              SDL_WINDOW_SHOWN);
+
+    renderer =  SDL_CreateRenderer(window, -1, 
+                              SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+}
+Board::~Board() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+}
+
 int Board::SDLinit()
 {
     if ( SDL_Init(SDL_INIT_VIDEO) < 0 ) 
@@ -15,26 +35,7 @@ int Board::SDLinit()
 
 int Board::renderBoard()
 {
-    SDLinit();
-    SDL_Window* window = SDL_CreateWindow("Chess Engine",
-                         SDL_WINDOWPOS_CENTERED,
-                         SDL_WINDOWPOS_CENTERED,
-                         BOARD_SIZE * SQUARE_SIZE,
-                         BOARD_SIZE * SQUARE_SIZE,
-                         SDL_WINDOW_SHOWN);
-    if ( !window )
-    {
-        std::cerr << "Could not create window\nSDL_Error: " << SDL_GetError();
-        return 1;
-    }
 
-    SDL_Renderer* renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-    if (!renderer) 
-    {
-        std::cerr << "Renderer could not be created\nSDL Error: " << SDL_GetError();
-        return 1;
-    }
-    
     bool quit = false;
     SDL_Event e;
 
@@ -77,8 +78,3 @@ int Board::renderBoard()
     return 0;
 }
 
-void Board::destroyBoard( SDL_Renderer* renderer, SDL_Window* window ) {
-    SDL_DestroyRenderer( renderer );
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}

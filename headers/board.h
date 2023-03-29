@@ -6,12 +6,16 @@
 class Board 
 {
 public:
-	int SDLinit();
-	int renderBoard();
-	void destroyBoard( SDL_Renderer* renderer, SDL_Window* window );
+	Board();
+	~Board();
+
+	int		SDLinit		();
+	int		renderBoard	();
+	void	renderChar	(char c, int x, int y, int charWidth, int charHeight, SDL_Texture* bitmapFont, SDL_Renderer* renderer);
 
 private:
-	const int BOARD_SIZE = 8;	 // Cells
+	const int BOARD_SIZE  = 8;   // Cells
 	const int SQUARE_SIZE = 100; // Pixels
-
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 };
