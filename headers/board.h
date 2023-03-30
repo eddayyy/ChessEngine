@@ -19,7 +19,7 @@ public:
     // Public methods
     int  SDLinit();
     int  renderBoard();
-    void loadPieceImages();
+    void initializeBoard();
 
 private:
     int _BOARD_SIZE  =  8;   // Cells
