@@ -1,3 +1,6 @@
+//============================================================
+// FILE: board.h
+//============================================================
 #pragma once
 #include <SDL.h>
 #include <pieces.h>
@@ -22,11 +25,25 @@ public:
     void initializeBoard();
 
 private:
-    int _BOARD_SIZE  =  8;   // Cells
-    int _SQUARE_SIZE = 100; // Pixels
+    // Private members
+    int _BOARD_SIZE  = 8;                           // Number of cells in the board
+    int _SQUARE_SIZE = 100;                         // Size of each cell in pixels
 
-    ChessPiece _board[8][8]; 
+    // ChessPiece struct
+    struct ChessPiece {
+        ChessPieceImage::type  Piece;               // Type of chess piece
+        ChessPieceImage::color Team;                // Color of the chess piece
+        std::shared_ptr<ChessPieceImage> pieceObj;  // Shared pointer to the ChessPieceImage object
 
-    SDL_Window*     _window;
-    SDL_Renderer*   _renderer;
+        ChessPiece() = default;                     // Default constructor
+
+        // Parametrized constructor
+        ChessPiece(ChessPieceImage::type pieceType, ChessPieceImage::color pieceColor, SDL_Renderer* renderer)
+            : Piece(pieceType), Team(pieceColor), pieceObj(std::make_shared<ChessPieceImage>(renderer, pieceType, pieceColor)) {}
+    };
+
+    ChessPiece _board[8][8];                        // 8x8 chess board
+
+    SDL_Window* _window;                            // Pointer to the SDL_Window object
+    SDL_Renderer* _renderer;                        // Pointer to the SDL_Renderer object
 };

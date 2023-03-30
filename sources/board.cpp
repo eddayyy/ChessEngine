@@ -1,12 +1,15 @@
+//============================================================
+// FILE: board.cpp
+//============================================================
 #include "board.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
 
-
 /*******************************************************************************
 **  Constructors, assignments, and destructor
 *******************************************************************************/
+
 // Constructor
 Board::Board()
 {
@@ -36,6 +39,7 @@ Board::~Board()
 /*******************************************************************************
 **  Accessors
 *******************************************************************************/
+
 int Board::boardSize() const noexcept
 {
     return _BOARD_SIZE;
@@ -55,6 +59,7 @@ SDL_Window* Board::window() const noexcept
 /*******************************************************************************
 **  Public methods
 *******************************************************************************/
+
 int Board::SDLinit()
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -97,7 +102,7 @@ int Board::renderBoard()
                 {
                     SDL_SetRenderDrawColor(_renderer, 181, 136, 99, 255); // Dark square
                 }
-                SDL_Rect rect;                                          // Rectangle Struct: int x, y, width, height
+                SDL_Rect rect;                                            // Rectangle Struct: int x, y, width, height
                 rect.x = col * _SQUARE_SIZE;
                 rect.y = row * _SQUARE_SIZE;
                 rect.w = _SQUARE_SIZE;
@@ -125,39 +130,42 @@ int Board::renderBoard()
 void Board::initializeBoard() {
     for (int row = 0; row < _BOARD_SIZE; row++) {
         for (int col = 0; col < _BOARD_SIZE; col++) {
-            ChessPiece::type pieceType = ChessPiece::Empty;
-            ChessPiece::color pieceColor = ChessPiece::None;
+            ChessPieceImage::type pieceType = ChessPieceImage::Empty;
+            ChessPieceImage::color pieceColor = ChessPieceImage::None;
 
             if (row == 0 || row == 7) {
                 if (col == 0 || col == 7) {
-                    pieceType = ChessPiece::Rook;
+                    pieceType = ChessPieceImage::Rook;
                 }
                 else if (col == 1 || col == 6) {
-                    pieceType = ChessPiece::Knight;
+                    pieceType = ChessPieceImage::Knight;
                 }
                 else if (col == 2 || col == 5) {
-                    pieceType = ChessPiece::Bishop;
+                    pieceType = ChessPieceImage::Bishop;
                 }
                 else if (col == 3) {
-                    pieceType = ChessPiece::Queen;
+                    pieceType = ChessPieceImage::Queen;
                 }
                 else {
-                    pieceType = ChessPiece::King;
+                    pieceType = ChessPieceImage::King;
                 }
             }
             else if (row == 1 || row == 6) {
-                pieceType = ChessPiece::Pawn;
+                pieceType = ChessPieceImage::Pawn;
             }
 
             if (row <= 1) {
-                pieceColor = ChessPiece::Black;
+                pieceColor = ChessPieceImage::Black;
             }
             else if (row >= 6) {
-                pieceColor = ChessPiece::White;
+                pieceColor = ChessPieceImage::White;
             }
 
-            if (pieceType != ChessPiece::Empty) {
+            if (pieceType != ChessPieceImage::Empty) {
                 _board[row][col] = ChessPiece(pieceType, pieceColor, _renderer);
+            }
+            else {
+                _board[row][col] = ChessPiece();
             }
         }
     }
