@@ -1,21 +1,32 @@
 #pragma once
 #include <SDL.h>
+#include <pieces.h>
 #include <iostream>
+#include <vector>
 
-
-class Board 
+class Board
 {
 public:
-	Board();
-	~Board();
+    // Constructors, assignments, and destructor
+    Board();
+    ~Board();
 
-	int		SDLinit		();
-	int		renderBoard	();
-	void	renderChar	(char c, int x, int y, int charWidth, int charHeight, SDL_Texture* bitmapFont, SDL_Renderer* renderer);
+    // Accessors
+    int         boardSize()    const noexcept;
+    int         squareSize()   const noexcept;
+    SDL_Window* window()       const noexcept;
+
+    // Public methods
+    int  SDLinit();
+    int  renderBoard();
+    void loadPieceImages();
 
 private:
-	const int BOARD_SIZE  = 8;   // Cells
-	const int SQUARE_SIZE = 100; // Pixels
-	SDL_Window* window;
-	SDL_Renderer* renderer;
+    int _BOARD_SIZE  =  8;   // Cells
+    int _SQUARE_SIZE = 100; // Pixels
+
+    ChessPiece _board[8][8]; 
+
+    SDL_Window*     _window;
+    SDL_Renderer*   _renderer;
 };
